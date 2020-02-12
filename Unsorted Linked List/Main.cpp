@@ -23,7 +23,7 @@ int main()
 	List2.InsertItem(23);
 	List2.InsertItem(99);
 
-	List1.Union(List1, List2);
+	List1.Union(List2);
 
 	for(int i = 0; i < 10; i++)
 		List1.GetNextItem();

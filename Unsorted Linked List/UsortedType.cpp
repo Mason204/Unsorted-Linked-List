@@ -89,7 +89,7 @@ void UnsortedType::MakeEmpty()
 	}
 	length = 0;
 }
-
+//Post: returns true if list is full and returns false if it is not.
 bool UnsortedType::IsFull()
 {
 	if (length == Max)
@@ -97,17 +97,18 @@ bool UnsortedType::IsFull()
 	else
 		return false;
 }
-
+//Post: Sets the position pointer back to head.
 void UnsortedType::ResetList()
 {
 	Pos = head;
 }
-
+//Post: Returns the list length.
 int UnsortedType::GetLength()
 {
 	return length;
 }
-
+//Pre: value must be givenl.
+//Post: Returns the Pos pointer that has that value. If the value is not in the list returns nul
 Node* UnsortedType::search(ItemType value)
 {
 	Pos = head;
@@ -115,27 +116,81 @@ Node* UnsortedType::search(ItemType value)
 		Pos = Pos->next;
 	return Pos;
 }
-
+//Pre: There must be two lists given with items in them.
+//Post: Combines two lists into a new one and returns it.
 UnsortedType UnsortedType::Union(UnsortedType List2)
 {
+	bool equal = false;
 	ResetList();
+	//Creates a new node that will be used to check to see if values are repeated.
 	Node* Combine = Pos;
+	//New list
 	UnsortedType Combined;	
+	//Inserted the first item into the new list
 	Combined.InsertItem(Pos->info);
-	Pos = Pos->next;
-	do
+	Combine = Pos->next;
+	//Runs throught the whole first list checking for duplicates.
+	while(Combine != nullptr)
 	{
-		ComparedTo(Pos->info, )
-	} while ();
-
-	while (loc->next != nullptr)
-		loc = loc->next;
-	loc->next = List2.head;
-	List1.length += List2.length;
-
+		ResetList();
+		do
+		{
+			if (ComparedTo(Pos->info, Combine->info) != Equal)
+			{
+				Pos = Pos->next;
+			}
+			else if (ComparedTo(Pos->info, Combine->info == Equal))
+			{
+				equal = true;
+				if (Pos == Combine)
+					equal = false;
+				break;
+			}			
+		} while (Pos->next != nullptr);
+		if (equal != true)
+		{
+			Combined.InsertItem(Combine->info);
+			Combine = Combine->next;
+		}
+		else
+		{ 
+			Combine = Combine->next;
+		}
+	}
+	List2.ResetList();
+	Combined.InsertItem(Pos->info);
+	Combine = Combine->next;
+	while (Combine != nullptr)
+	{
+		List2.ResetList();
+		do
+		{
+			if (ComparedTo(Pos->info, Combine->info) != Equal)
+			{
+				Pos = Pos->next;
+			}
+			else if (ComparedTo(Pos->info, Combine->info == Equal))
+			{
+				equal = true;
+				if (Pos == Combine)
+					equal = false;
+				break;
+			}
+		} while (Pos->next != nullptr);
+		if (equal != true)
+		{
+			Combined.InsertItem(Combine->info);
+			Combine = Combine->next;
+		}
+		else
+		{
+			Combine = Combine->next;
+		}
+	}	
 	return Combined;
 }
-
+//Pre:Two values are given.
+//Post:Returns less, equal, or greater.
 RelationType UnsortedType::ComparedTo(ItemType value1, ItemType value2)
 {
 	if (value1 < value2)
